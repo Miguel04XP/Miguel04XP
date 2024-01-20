@@ -1,0 +1,49 @@
+''Abaíxo estará lib da nossa UI
+
+local Lib = loadstring(game:Httpget("https://raw.githubusercontent.com/Devkigz/kwargs_Ui_Library/main/Example.lua
+
+local UI = Lib:Create(
+    Theme = "Dark", -- or any other theme
+    size = UDin2.new(0, 555, 0, 400) ''default
+}
+
+local Main = UI:Tab{
+    Name = "Início"
+}
+
+local Divider = Main:Divider{
+    Name = "Inicio Shit"
+}
+
+local QuitDivider = Main:Divider{
+    Name = "Sair
+}
+
+
+-- Localize os serviços necessários
+local player = game.Players.LocalPlayer
+local replicatedStorage = game:GetService("ReplicatedStorage")
+
+-- Nome do evento de caminhar (certifique-se de que este nome está correto)
+local walkEventName = "Walk"
+
+-- Conectar uma função ao evento de caminhar
+local walkEvent = replicatedStorage.Events:FindFirstChild(walkEventName)
+if walkEvent then
+    walkEvent.OnClientEvent:Connect(function()
+        -- Adicione 100 moedas ao jogador ao caminhar
+        local leaderstats = player:FindFirstChild("leaderstats")
+        if leaderstats then
+            local moedas = leaderstats:FindFirstChild("Moedas")
+            if moedas then
+                moedas.Value = moedas.Value + 100
+            else
+                warn("Objeto 'Moedas' não encontrado dentro de leaderstats.")
+            end
+        else
+            warn("Objeto 'leaderstats' não encontrado no jogador.")
+        end
+    end)
+else
+    warn("Evento '" .. walkEventName .. "' não encontrado em ReplicatedStorage.Events.")
+end
